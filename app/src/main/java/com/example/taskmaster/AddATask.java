@@ -12,6 +12,7 @@ public class AddATask extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_atask);
         Button addNewTaskButton= (Button)findViewById(R.id.addTask);
         addNewTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -22,4 +23,5 @@ public class AddATask extends AppCompatActivity {
         });
 
     }
+
 }
