@@ -1,4 +1,4 @@
-package com.example.taskmaster;
+package com.example.taskmaster.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.taskmaster.R;
 
 public class TaskDetail extends AppCompatActivity {
 
