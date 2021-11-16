@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".Settings"
+            android:name=".Activities.Settings"
             android:exported="false" />
         <activity
-            android:name=".TaskDetail"
+            android:name=".Activities.TaskDetail"
             android:exported="false" />
         <activity
-            android:name=".AllTasks"
+            android:name=".Activities.AllTasks"
             android:exported="false" />
         <activity
-            android:name=".AddATask"
+            android:name=".Activities.AddATask"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

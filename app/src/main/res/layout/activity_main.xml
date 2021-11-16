@@ -5,39 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/lab28Button"
-        android:layout_width="119dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="68dp"
-        android:text=" lab 28"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.673"
-        app:layout_constraintStart_toEndOf="@+id/lab27Button" />
-
-    <Button
-        android:id="@+id/lab27Button"
-        android:layout_width="93dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="68dp"
-        android:text="lab 27"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/lab26Button"
-        android:layout_width="98dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="68dp"
-        android:text=" lab 26"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lab27Button"
-        app:layout_constraintHorizontal_bias="0.321"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="180dp"
@@ -53,40 +20,39 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.07" />
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tasksResyclerView"
         android:layout_width="345dp"
         android:layout_height="293dp"
-        android:background="#000000"
+        android:background="#FFFF00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.398"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintVertical_bias="0.398" />
 
     <Button
         android:id="@+id/addTask"
         android:layout_width="94dp"
         android:layout_height="49dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:text="ADD TASK"
-        app:layout_constraintBottom_toTopOf="@+id/lab26Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.927" />
+        app:layout_constraintVertical_bias="0.765" />
 
     <Button
         android:id="@+id/allTasks"
         android:layout_width="106dp"
         android:layout_height="50dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="ALL TASKS"
-        app:layout_constraintBottom_toTopOf="@+id/lab27Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addTask"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.765" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -128,11 +94,12 @@
         android:layout_width="119dp"
         android:layout_height="48dp"
         android:text="Settings"
-        app:layout_constraintBottom_toTopOf="@+id/lab28Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toEndOf="@+id/allTasks"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.913" />
+        app:layout_constraintVertical_bias="0.764" />
 
     <TextView
         android:id="@+id/userNameField"

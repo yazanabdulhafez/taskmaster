@@ -1,6 +1,8 @@
-package com.example.taskmaster;
+package com.example.taskmaster.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.taskmaster.Adapters.TaskAdapter;
+import com.example.taskmaster.Models.Task;
+import com.example.taskmaster.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     // Called when the activity is first created.
@@ -18,6 +27,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        List<Task> taskList=new ArrayList<Task>();
+        taskList.add(new Task("lab26","this is lab26","complete"));
+        taskList.add(new Task("lab27","this is lab27","assigned"));
+        taskList.add(new Task("lab28","this is lab28","in progress"));
+
+        RecyclerView recyclerView=findViewById(R.id.tasksResyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new TaskAdapter(taskList));
+
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -45,44 +64,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //define what the three buttons do
-        Button lab26Button = findViewById(R.id.lab26Button);
-        Button lab27Button = findViewById(R.id.lab27Button);
-        Button lab28Button = findViewById(R.id.lab28Button);
-
-        lab26Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String taskTitle=lab26Button.getText().toString();
-                Intent goTolab26Task=new Intent(MainActivity.this,TaskDetail.class);
-                goTolab26Task.putExtra("taskTitle",taskTitle);
-                startActivity(goTolab26Task);
-
-            }
-        });
-
-        lab27Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String taskTitle=lab27Button.getText().toString();
-                Intent goTolab27Task=new Intent(MainActivity.this,TaskDetail.class);
-                goTolab27Task.putExtra("taskTitle",taskTitle);
-                startActivity(goTolab27Task);
-
-            }
-        });
-
-        lab28Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String taskTitle=lab28Button.getText().toString();
-                Intent goTolab28Task=new Intent(MainActivity.this,TaskDetail.class);
-                goTolab28Task.putExtra("taskTitle",taskTitle);
-                startActivity(goTolab28Task);
-
-            }
-        });
-
+//        //define what the three buttons do
+//        Button lab26Button = findViewById(R.id.lab26Button);
+//        Button lab27Button = findViewById(R.id.lab27Button);
+//        Button lab28Button = findViewById(R.id.lab28Button);
+//
+//        lab26Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String taskTitle=lab26Button.getText().toString();
+//                Intent goTolab26Task=new Intent(MainActivity.this, TaskDetail.class);
+//                goTolab26Task.putExtra("taskTitle",taskTitle);
+//                startActivity(goTolab26Task);
+//
+//            }
+//        });
+//
+//        lab27Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String taskTitle=lab27Button.getText().toString();
+//                Intent goTolab27Task=new Intent(MainActivity.this,TaskDetail.class);
+//                goTolab27Task.putExtra("taskTitle",taskTitle);
+//                startActivity(goTolab27Task);
+//
+//            }
+//        });
+//
+//        lab28Button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String taskTitle=lab28Button.getText().toString();
+//                Intent goTolab28Task=new Intent(MainActivity.this,TaskDetail.class);
+//                goTolab28Task.putExtra("taskTitle",taskTitle);
+//                startActivity(goTolab28Task);
+//
+//            }
+//        });
+//
 
 
     }
