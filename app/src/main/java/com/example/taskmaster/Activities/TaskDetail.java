@@ -18,11 +18,9 @@ public class TaskDetail extends AppCompatActivity {
         setContentView(R.layout.activity_task_detail);
 
         TextView taskDetailText=findViewById(R.id.taskDatailText);
-        taskDetailText.setText("Lorem ipsum dolor sit amet," +
-                " consectetur adipiscing elit. Mauris maximus " +
-                "vestibulum sagittis. Nam pretium erat dui," +
-                " quis convallis nisl eleifend aliquam. " +
-                "Nulla quis quam id ante imperdiet lacinia. ");
+        String details="The description of task: "+getIntent().getExtras().get("taskBody").toString()
+                + "\n" +" state of task is: " +getIntent().getExtras().get("taskState").toString();
+        taskDetailText.setText(details);
 
         TextView taskDetailTitleLabel = findViewById(R.id.taskDetailTitle);
         String taskTitle = getIntent().getExtras().get("taskTitle").toString();
