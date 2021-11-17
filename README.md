@@ -71,3 +71,29 @@ In your MainActivity, create at least three hardcoded Task instances and use tho
 Ensure that you can tap on any one of the Tasks in the RecyclerView, and it will appropriately launch the detail page with the correct Task title displayed.
 
 ![new home page](screenshots/281.png)
+
+## Lab 29
+
+### Feature Tasks for lab 29
+
+#### Task Model and Room
+
+Following the directions provided in the Android documentation, set up Room in your application, and modify your Task class to be an Entity.
+
+[Task Model](app/src/main/java/com/example/taskmaster/Models/Task.java)
+
+#### Add Task Form
+
+Modify your Add Task form to save the data entered in as a Task in your local database.
+
+![Add task](screenshots/29at.png)
+
+#### Homepage new
+
+Refactor your homepage’s RecyclerView to display all Task entities in your database.
+
+#### Detail Page new
+
+Ensure that the description and status of a tapped task are also displayed on the detail page, in addition to the title. (Note that you can accomplish this by passing along the entire Task entity, or by passing along only its ID in the intent.)
+
+![task detail](screenshots/29d.png)

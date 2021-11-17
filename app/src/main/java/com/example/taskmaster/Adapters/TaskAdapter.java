@@ -53,17 +53,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         TextView title=holder.itemView.findViewById(R.id.titleTextView);
         TextView body=holder.itemView.findViewById(R.id.bodyTextView);
         TextView state=holder.itemView.findViewById(R.id.stateTextView);
-        Button gotodetails =holder.itemView.findViewById(R.id.goToDetailsButton);
+        Button goToDetails =holder.itemView.findViewById(R.id.goToDetailsButton);
 
         title.setText(holder.task.getTitle());
         body.setText(holder.task.getBody());
         state.setText(holder.task.getState());
-        gotodetails.setOnClickListener(new View.OnClickListener() {
+        goToDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String taskTitle=holder.task.getTitle();
+
                 Intent goToDetailsPage=new Intent(v.getContext(),TaskDetail.class);
-                goToDetailsPage.putExtra("taskTitle",taskTitle);
+                goToDetailsPage.putExtra("taskTitle",holder.task.getTitle());
+                goToDetailsPage.putExtra("taskBody",holder.task.getBody());
+                goToDetailsPage.putExtra("taskState",holder.task.getState());
                 v.getContext().startActivity(goToDetailsPage);
             }
         });
