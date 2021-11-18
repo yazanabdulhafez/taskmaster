@@ -15,7 +15,7 @@ import com.example.taskmaster.Models.Task;
 import com.example.taskmaster.R;
 
 public class AddATask extends AppCompatActivity {
-
+private int taskCounter=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class AddATask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Task newTask = new Task(title.getText().toString(), body.getText().toString(), state.getText().toString());
-                AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "tasksDatabase").allowMainThreadQueries().build();
+                AppDatabase db =AppDatabase.getInstance(getApplicationContext());
                 db.taskDao().insertAll(newTask);
                 Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
                 Intent goToHome = new Intent(AddATask.this, MainActivity.class);
@@ -41,4 +41,11 @@ public class AddATask extends AppCompatActivity {
 
     }
 
+    public int getTaskCounter() {
+        return taskCounter;
+    }
+
+    public void setTaskCounter(int taskCounter) {
+        this.taskCounter = taskCounter;
+    }
 }

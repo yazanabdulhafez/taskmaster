@@ -33,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-       AppDatabase db=Room
-               .databaseBuilder(getApplicationContext(), AppDatabase.class, "tasksDatabase")
-               .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+       AppDatabase db =AppDatabase.getInstance(getApplicationContext());
         List<Task> taskList = db.taskDao().getAll();
         System.out.println(taskList);
 
