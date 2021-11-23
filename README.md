@@ -97,3 +97,19 @@ Refactor your homepage’s RecyclerView to display all Task entities in your dat
 Ensure that the description and status of a tapped task are also displayed on the detail page, in addition to the title. (Note that you can accomplish this by passing along the entire Task entity, or by passing along only its ID in the intent.)
 
 ![task detail](screenshots/29d.png)
+
+## Lab 32
+
+### Feature Tasks for lab 32
+
+#### Tasks Are Cloudy
+
+Using the amplify add api command, create a Task resource that replicates our existing Task schema. Update all references to the Task data to instead use AWS Amplify to access your data in DynamoDB instead of in Room.
+
+#### Add Task Form edited
+
+Modify your Add Task form to save the data entered in as a Task to DynamoDB.
+
+#### Homepage edited
+
+Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB.
