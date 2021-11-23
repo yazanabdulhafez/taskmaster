@@ -1,5 +1,6 @@
 package com.example.taskmaster.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,16 +9,25 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.example.taskmaster.Adapters.TaskAdapter;
 import com.example.taskmaster.Database.AppDatabase;
 import com.example.taskmaster.Database.TaskDao;
-import com.example.taskmaster.Models.Task;
+//import com.example.taskmaster.Models.Task;
 import com.example.taskmaster.R;
 
 import java.util.ArrayList;
@@ -33,11 +43,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-       AppDatabase db =AppDatabase.getInstance(getApplicationContext());
-        List<Task> taskList = db.taskDao().getAll();
-        System.out.println(taskList);
+        try {
+            // Add these lines to add the AWSApiPlugin plugins
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("TaskMaster", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("TaskMaster", "Could not initialize Amplify", error);
+        }
+
+//       AppDatabase db =AppDatabase.getInstance(getApplicationContext());
+//        List<Task> taskList = db.taskDao().getAll();
+//        System.out.println(taskList);
 
         RecyclerView recyclerView=findViewById(R.id.tasksResyclerView);
+
+        //get the data from the dynamoDB
+        Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message message) {
+                recyclerView.getAdapter().notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        List<Task> taskList = new ArrayList<Task>();
+        Amplify.API.query(
+                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
+                response -> {
+                    for (Task task : response.getData()) {
+                        taskList.add(task);
+                    }
+                    handler.sendEmptyMessage(1);
+                },
+                error -> Log.e("TaskMaster", error.toString(), error)
+        );
+        
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new TaskAdapter(taskList));
 
