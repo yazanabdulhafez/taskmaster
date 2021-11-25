@@ -9,13 +9,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 //import com.example.taskmaster.Database.AppDatabase;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.example.taskmaster.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddATask extends AppCompatActivity {
 private int taskCounter=0;
@@ -30,6 +39,29 @@ private int taskCounter=0;
         EditText body = findViewById(R.id.taskBodyFeild);
         EditText state = findViewById(R.id.taskStateFeild);
 
+        //****************************/
+        try {
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.configure(getApplicationContext());
+            Log.i("TaskMaster", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("TaskMaster", "Could not initialize Amplify", error);
+        }
+
+        Map< String,String> teamList = new HashMap<>();
+        Amplify.API.query(
+                ModelQuery.list(com.amplifyframework.datastore.generated.model.Team.class),
+                response -> {
+                    for (Team oneTeam : response.getData()) {
+                        teamList.put(oneTeam.getTeamName(), oneTeam.getId());
+                    }
+                },
+                error -> Log.e("TaskMaster", error.toString(), error)
+        );
+        //****************************/
+
+
+
         addNewTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +70,17 @@ private int taskCounter=0;
 //                db.taskDao().insertAll(newTask);
 
                 //this model is from Amplify it used to store the data
+
+                RadioGroup radioGroup = findViewById(R.id.teamRadioGroup);
+                int chosenButtonId = radioGroup.getCheckedRadioButtonId();
+                RadioButton chosenButton = findViewById(chosenButtonId);
+                String chosenTeam = chosenButton.getText().toString();
+
+                Amplify.API.query(
+                        ModelQuery.get(Team.class, teamList.get(chosenTeam)),
+                        response1 -> {
+                            Log.i("TaskMaster", ((Team) response1.getData()).getTeamName());
+
                 Task task = Task.builder()
                         .title(title.getText().toString())
                         .body(body.getText().toString())
@@ -46,8 +89,9 @@ private int taskCounter=0;
 
                 Amplify.API.mutate(
                         ModelMutation.create(task),
-                        response -> Log.i("TaskMaster", "Added Task with id: " + response.getData().getId()),
-                        error -> Log.e("TaskMaster", "Create failed", error)
+                        response3 -> Log.i("TaskMaster", "Added Task with id: " + response3.getData().getId()),
+                        error -> Log.e("TaskMaster", "Create failed", error) );
+                        }, error -> Log.e("TaskMaster", error.toString(), error)
                 );
 
                 Toast.makeText(getApplicationContext(), "submitted!", Toast.LENGTH_SHORT).show();
