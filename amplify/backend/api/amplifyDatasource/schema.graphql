@@ -1,7 +1,13 @@
 type Task @model {
   id: ID!
-  title: String
+  title: String!
   body: String
   state: String
+  team: Team @connection(name: "teamTasks")
 }
 
+type Team @model {
+  id: ID!
+  teamName: String!
+  task: [Task] @connection(name: "teamTasks")
+}

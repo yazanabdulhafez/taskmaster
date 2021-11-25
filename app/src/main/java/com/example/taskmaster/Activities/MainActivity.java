@@ -21,9 +21,11 @@ import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.example.taskmaster.Adapters.TaskAdapter;
 import com.example.taskmaster.Database.AppDatabase;
 import com.example.taskmaster.Database.TaskDao;
@@ -53,35 +55,63 @@ public class MainActivity extends AppCompatActivity {
             Log.e("TaskMaster", "Could not initialize Amplify", error);
         }
 
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String teamId = sharedPreferences.getString("teamId", "");
+
+//                Team teamOne = Team.builder().teamName("teamOne").build();
+//        Team teamTwo = Team.builder().teamName("teamTwo").build();
+//        Team teamThree = Team.builder().teamName("teamThree").build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(teamOne),
+//                response -> Log.i("TaskMaster", "Added Todo with id: " + response.getData().getId()),
+//                error -> Log.e("TaskMaster", "Create failed", error)
+//        );
+//        Amplify.API.mutate(
+//                ModelMutation.create(teamTwo),
+//                response -> Log.i("TaskMaster", "Added Todo with id: " + response.getData().getId()),
+//                error -> Log.e("TaskMaster", "Create failed", error)
+//        );
+//        Amplify.API.mutate(
+//                ModelMutation.create(teamThree),
+//                response -> Log.i("TaskMaster", "Added Todo with id: " + response.getData().getId()),
+//                error -> Log.e("TaskMaster", "Create failed", error)
+//        );
+
+        //Room database Part
 //       AppDatabase db =AppDatabase.getInstance(getApplicationContext());
 //        List<Task> taskList = db.taskDao().getAll();
 //        System.out.println(taskList);
-
-        RecyclerView recyclerView=findViewById(R.id.tasksResyclerView);
-
-        //get the data from the dynamoDB
-        Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
-            @Override
-            public boolean handleMessage(@NonNull Message message) {
-                recyclerView.getAdapter().notifyDataSetChanged();
-                return false;
-            }
-        });
-
-        List<Task> taskList = new ArrayList<Task>();
-        Amplify.API.query(
-                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
-                response -> {
-                    for (Task task : response.getData()) {
-                        taskList.add(task);
-                    }
-                    handler.sendEmptyMessage(1);
-                },
-                error -> Log.e("TaskMaster", error.toString(), error)
-        );
         
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TaskAdapter(taskList));
+        System.out.println("**********************************"+teamId);
+        if (!teamId.equals("")) {
+            RecyclerView recyclerView = findViewById(R.id.tasksResyclerView);
+
+            //get the data from the dynamoDB
+            Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
+                @Override
+                public boolean handleMessage(@NonNull Message message) {
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                    return false;
+                }
+            });
+
+            List<Task> taskList = new ArrayList<Task>();
+            Amplify.API.query(
+                    ModelQuery.get(Team.class, teamId),
+                    response -> {
+                        for (Task task : response.getData().getTask()) {
+                            taskList.add(task);
+                        }
+                        handler.sendEmptyMessage(1);
+                    },
+                    error -> Log.e("TaskMaster", error.toString(), error)
+            );
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new TaskAdapter(taskList));
+        }
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userName","the user didn't add a name yet!");
         TextView userNameText=findViewById(R.id.userNameField);
         userNameText.setText(userName+"’s tasks");
+        String chooseTeamName = sharedPreferences.getString("teamName", "Choose a team");
+        TextView teamName = findViewById(R.id.teamName);
+        teamName.setText(chooseTeamName);
     }
 
     // Called when another activity is taking focus.
