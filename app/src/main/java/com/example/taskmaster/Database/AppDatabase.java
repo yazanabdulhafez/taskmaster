@@ -12,6 +12,7 @@ import com.example.taskmaster.Models.Task;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
 
+
     //This is the Singleton
     private static AppDatabase appDatabase; //declare the instance
 

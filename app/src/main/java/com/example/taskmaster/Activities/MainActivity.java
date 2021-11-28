@@ -24,6 +24,9 @@ import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+
+//import com.amplifyframework.datastore.generated.model.AmpTask;
+
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.example.taskmaster.Adapters.TaskAdapter;
@@ -47,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Add these lines to add the AWSApiPlugin plugins
-            Amplify.addPlugin(new AWSApiPlugin());
+
+             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.configure(getApplicationContext());
 
             Log.i("TaskMaster", "Initialized Amplify");
@@ -55,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
             Log.e("TaskMaster", "Could not initialize Amplify", error);
         }
 
-
+        /********************/
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String teamId = sharedPreferences.getString("teamId", "");
 
-//                Team teamOne = Team.builder().teamName("teamOne").build();
-//        Team teamTwo = Team.builder().teamName("teamTwo").build();
-//        Team teamThree = Team.builder().teamName("teamThree").build();
+//                Team teamOne = Team.builder().name("teamOne").build();
+//        Team teamTwo = Team.builder().name("teamTwo").build();
+//        Team teamThree = Team.builder().name("teamThree").build();
 //
 //        Amplify.API.mutate(
 //                ModelMutation.create(teamOne),
@@ -79,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
 //                error -> Log.e("TaskMaster", "Create failed", error)
 //        );
 
-        //Room database Part
-//       AppDatabase db =AppDatabase.getInstance(getApplicationContext());
+//////////////**********************///////////////
+//        AppDatabase db =AppDatabase.getInstance(getApplicationContext());
 //        List<Task> taskList = db.taskDao().getAll();
 //        System.out.println(taskList);
-        
+
         System.out.println("**********************************"+teamId);
         if (!teamId.equals("")) {
             RecyclerView recyclerView = findViewById(R.id.tasksResyclerView);
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             Amplify.API.query(
                     ModelQuery.get(Team.class, teamId),
                     response -> {
-                        for (Task task : response.getData().getTask()) {
+                        for (Task task : response.getData().getAmpTasks()) {
                             taskList.add(task);
                         }
                         handler.sendEmptyMessage(1);
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new TaskAdapter(taskList));
         }
+
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userName","the user didn't add a name yet!");
         TextView userNameText=findViewById(R.id.userNameField);
         userNameText.setText(userName+"’s tasks");
+
+
+
         String chooseTeamName = sharedPreferences.getString("teamName", "Choose a team");
         TextView teamName = findViewById(R.id.teamName);
         teamName.setText(chooseTeamName);
