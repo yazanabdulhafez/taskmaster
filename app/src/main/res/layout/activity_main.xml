@@ -15,16 +15,16 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.264"
+        app:layout_constraintHorizontal_bias="0.147"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksResyclerView"
         android:layout_width="345dp"
         android:layout_height="293dp"
-        android:background="#FFFF00"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
@@ -34,25 +34,27 @@
 
     <Button
         android:id="@+id/addTask"
-        android:layout_width="94dp"
-        android:layout_height="49dp"
+        android:layout_width="103dp"
+        android:layout_height="51dp"
         android:layout_marginStart="32dp"
+        android:backgroundTint="#7b00a0"
         android:text="ADD TASK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.765" />
+        app:layout_constraintVertical_bias="0.763" />
 
     <Button
         android:id="@+id/allTasks"
-        android:layout_width="106dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="108dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="#7b00a0"
         android:text="ALL TASKS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addTask"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.765" />
+        app:layout_constraintVertical_bias="0.763" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -91,26 +93,40 @@
 
     <Button
         android:id="@+id/settingButton"
-        android:layout_width="119dp"
-        android:layout_height="48dp"
+        android:layout_width="116dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#7b00a0"
         android:text="Settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/allTasks"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.764" />
+        app:layout_constraintVertical_bias="0.763" />
 
     <TextView
         android:id="@+id/userNameField"
         android:layout_width="155dp"
         android:layout_height="40dp"
+        android:fontFamily="sans-serif-black"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.134" />
+
+    <TextView
+        android:id="@+id/teamName"
+        android:layout_width="182dp"
+        android:layout_height="41dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/userNameField"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.133" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

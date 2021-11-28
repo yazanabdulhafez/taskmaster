@@ -97,3 +97,43 @@ Refactor your homepage’s RecyclerView to display all Task entities in your dat
 Ensure that the description and status of a tapped task are also displayed on the detail page, in addition to the title. (Note that you can accomplish this by passing along the entire Task entity, or by passing along only its ID in the intent.)
 
 ![task detail](screenshots/29d.png)
+
+## Lab 32
+
+### Feature Tasks for lab 32
+
+#### Tasks Are Cloudy
+
+Using the amplify add api command, create a Task resource that replicates our existing Task schema. Update all references to the Task data to instead use AWS Amplify to access your data in DynamoDB instead of in Room.
+
+#### Add Task Form edited
+
+Modify your Add Task form to save the data entered in as a Task to DynamoDB.
+
+#### Homepage edited
+
+Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB.
+
+## Lab 33
+
+### Feature Tasks for lab 33
+
+#### Tasks Are Owned By Teams
+
+Create a second entity for a team, which has a name and a list of tasks. Update your tasks to be owned by a team.
+
+Manually create three teams by running a mutation exactly three times in your code. (You do NOT need to allow the user to create new teams.)
+
+![home page](screenshots/lab33hp.png)
+
+#### Add Task Form(edit)
+
+Modify your Add Task form to include either a Spinner or Radio Buttons for which team that task belongs to.
+
+![task form](screenshots/lab33ar.png)
+
+#### Settings Page(edit)
+
+In addition to a username, allow the user to choose their team on the Settings page. Use that Team to display only that team’s tasks on the homepage.
+
+![setting page](screenshots/lab33set.png)
