@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.example.taskmaster.Activities.MainActivity;
 import com.example.taskmaster.Activities.TaskDetail;
+
 //import com.example.taskmaster.Models.Task;
+
 import com.example.taskmaster.R;
 
 import java.util.ArrayList;

@@ -24,7 +24,9 @@ import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+
 //import com.amplifyframework.datastore.generated.model.AmpTask;
+
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.example.taskmaster.Adapters.TaskAdapter;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Add these lines to add the AWSApiPlugin plugins
+
              Amplify.addPlugin(new AWSApiPlugin());
             Amplify.configure(getApplicationContext());
 
@@ -160,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userName","the user didn't add a name yet!");
         TextView userNameText=findViewById(R.id.userNameField);
         userNameText.setText(userName+"’s tasks");
+
+
 
         String chooseTeamName = sharedPreferences.getString("teamName", "Choose a team");
         TextView teamName = findViewById(R.id.teamName);

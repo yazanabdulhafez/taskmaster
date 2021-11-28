@@ -1,5 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
+
+
 import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
@@ -8,10 +10,12 @@ import java.util.Objects;
 
 import androidx.core.util.ObjectsCompat;
 
+
 import com.amplifyframework.core.model.AuthStrategy;
 import com.amplifyframework.core.model.Model;
 import com.amplifyframework.core.model.ModelOperation;
 import com.amplifyframework.core.model.annotations.AuthRule;
+
 import com.amplifyframework.core.model.annotations.Index;
 import com.amplifyframework.core.model.annotations.ModelConfig;
 import com.amplifyframework.core.model.annotations.ModelField;
@@ -21,21 +25,25 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Task type in your schema. */
 @SuppressWarnings("all")
+
 @ModelConfig(pluralName = "Tasks", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 @Index(name = "byTeam", fields = {"teamID"})
+
 public final class Task implements Model {
   public static final QueryField ID = field("Task", "id");
   public static final QueryField TITLE = field("Task", "title");
   public static final QueryField BODY = field("Task", "body");
   public static final QueryField STATE = field("Task", "state");
+
   public static final QueryField TEAM_ID = field("Task", "teamID");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String", isRequired = true) String body;
   private final @ModelField(targetType="String", isRequired = true) String state;
   private final @ModelField(targetType="ID") String teamID;
+
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -54,8 +62,10 @@ public final class Task implements Model {
       return state;
   }
   
+
   public String getTeamId() {
       return teamID;
+
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -66,12 +76,17 @@ public final class Task implements Model {
       return updatedAt;
   }
   
+
   private Task(String id, String title, String body, String state, String teamID) {
+
+
     this.id = id;
     this.title = title;
     this.body = body;
     this.state = state;
+
     this.teamID = teamID;
+
   }
   
   @Override
@@ -86,7 +101,9 @@ public final class Task implements Model {
               ObjectsCompat.equals(getTitle(), task.getTitle()) &&
               ObjectsCompat.equals(getBody(), task.getBody()) &&
               ObjectsCompat.equals(getState(), task.getState()) &&
+
               ObjectsCompat.equals(getTeamId(), task.getTeamId()) &&
+
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
       }
@@ -99,7 +116,9 @@ public final class Task implements Model {
       .append(getTitle())
       .append(getBody())
       .append(getState())
+
       .append(getTeamId())
+
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -114,7 +133,9 @@ public final class Task implements Model {
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("body=" + String.valueOf(getBody()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
+
       .append("teamID=" + String.valueOf(getTeamId()) + ", ")
+
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -148,6 +169,7 @@ public final class Task implements Model {
       title,
       body,
       state,
+
       teamID);
   }
   public interface TitleStep {
@@ -162,6 +184,7 @@ public final class Task implements Model {
 
   public interface StateStep {
     BuildStep state(String state);
+
   }
   
 
@@ -173,11 +196,14 @@ public final class Task implements Model {
   
 
   public static class Builder implements TitleStep, BodyStep, StateStep, BuildStep {
+
     private String id;
     private String title;
     private String body;
     private String state;
+
     private String teamID;
+
     @Override
      public Task build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -192,12 +218,14 @@ public final class Task implements Model {
     
     @Override
      public BodyStep title(String title) {
+
         Objects.requireNonNull(title);
         this.title = title;
         return this;
     }
     
     @Override
+
      public StateStep body(String body) {
         Objects.requireNonNull(body);
         this.body = body;
@@ -212,8 +240,10 @@ public final class Task implements Model {
     }
     
     @Override
+
      public BuildStep teamId(String teamId) {
         this.teamID = teamId;
+
         return this;
     }
     
@@ -229,12 +259,16 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
+
     private CopyOfBuilder(String id, String title, String body, String state, String teamId) {
+
       super.id(id);
       super.title(title)
         .body(body)
         .state(state)
+
         .teamId(teamId);
+
     }
     
     @Override
@@ -253,8 +287,10 @@ public final class Task implements Model {
     }
     
     @Override
+
      public CopyOfBuilder teamId(String teamId) {
       return (CopyOfBuilder) super.teamId(teamId);
+
     }
   }
   

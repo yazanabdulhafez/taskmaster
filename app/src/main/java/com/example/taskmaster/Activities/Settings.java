@@ -45,7 +45,9 @@ public class Settings extends AppCompatActivity {
                 ModelQuery.list(com.amplifyframework.datastore.generated.model.Team.class),
                 response -> {
                     for (Team team : response.getData()) {
+
                         teamList.put(team.getName(),team.getId());
+
                     }
                 },
                 error -> Log.e("MasterTask", error.toString(), error)
