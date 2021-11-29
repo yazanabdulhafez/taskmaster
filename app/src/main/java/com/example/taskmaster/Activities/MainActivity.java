@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.cognitoauth.Auth;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
@@ -63,20 +64,15 @@ public class MainActivity extends AppCompatActivity {
             Log.e("TaskMaster", "Could not initialize Amplify", error);
         }
 
-        Amplify.Auth.fetchAuthSession(
-                result -> Log.i("AmplifyQuickstart", result.toString()),
-                error -> Log.e("AmplifyQuickstart", error.toString())
-        );
-
-//        Amplify.Auth.signOut(
-//                () -> Log.i("AuthQuickstart", "Signed out successfully"),
-//                error -> Log.e("AuthQuickstart", error.toString())
-//        );
-
         Amplify.Auth.signInWithWebUI(
                 this,
                 result -> Log.i("AuthQuickStart", result.toString()),
                 error -> Log.e("AuthQuickStart", error.toString())
+        );
+
+        Amplify.Auth.fetchAuthSession(
+                result -> Log.i("AmplifyQuickstart", result.toString()),
+                error -> Log.e("AmplifyQuickstart", error.toString())
         );
 
 
@@ -111,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Get the data from data base and display it in recyclerView
         System.out.println("**********************************" + teamId);
+
         if (!teamId.equals("")) {
             RecyclerView recyclerView = findViewById(R.id.tasksResyclerView);
 
@@ -173,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Sign out button
+
         Button signOutButton = findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                         () -> Log.i("AuthQuickstart", "Signed out successfully"),
                         error -> Log.e("AuthQuickstart", error.toString())
                 );
+
+
             }
         });
 
@@ -208,18 +208,15 @@ public class MainActivity extends AppCompatActivity {
         TextView teamName = findViewById(R.id.teamName);
         teamName.setText(chooseTeamName);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AuthUser logedInUser = Amplify.Auth.getCurrentUser();
-                TextView userName = findViewById(R.id.userNameField2);
-                if (logedInUser != null) {
-                    userName.setText(logedInUser.getUsername());
-                }
-            }
 
-        }, 1000);
+        //get the current user from auth
+        AuthUser logedInUser = Amplify.Auth.getCurrentUser();
+        TextView userNameAuth = findViewById(R.id.userNameField2);
+        if (logedInUser != null) {
+            userNameAuth.setText(logedInUser.getUsername());
+        } else {
+            userNameAuth.setText("Anonymous");
+        }
     }
 
     // Called when another activity is taking focus.
