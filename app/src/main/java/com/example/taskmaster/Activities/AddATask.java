@@ -47,7 +47,6 @@ public class AddATask extends AppCompatActivity {
         //****************************/
         try {
             Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.configure(getApplicationContext());
             Log.i("TaskMaster", "Initialized Amplify");
         } catch (AmplifyException error) {
             Log.e("TaskMaster", "Could not initialize Amplify", error);
