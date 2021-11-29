@@ -32,9 +32,10 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         //***************************
+        //get the team list from dynamo database
+
         try {
             Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.configure(getApplicationContext());
             Log.i("MasterTask", "Initialized Amplify");
         } catch (AmplifyException error) {
             Log.e("MasterTask", "Could not initialize Amplify", error);
@@ -52,6 +53,8 @@ public class Settings extends AppCompatActivity {
                 },
                 error -> Log.e("MasterTask", error.toString(), error)
         );
+
+
         //**************************
 
 
@@ -63,7 +66,7 @@ public class Settings extends AppCompatActivity {
                 EditText userNameField = findViewById(R.id.userNameInputFeild);
                 String userName = userNameField.getText().toString();
 
-                // add value to the shared preferences
+                // add value to the shared preferences and send the user name to the main page
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Settings.this);
 
                 SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
@@ -72,9 +75,12 @@ public class Settings extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "submmited!", Toast.LENGTH_SHORT).show();
 
 
+                //get the team name chosen from the radio buttons and send it to the main page
                 RadioGroup radioGroup = findViewById(R.id.radioGroupSetting);
                 int chosenButtonId = radioGroup.getCheckedRadioButtonId();
                 RadioButton chosenButton = findViewById(chosenButtonId);
+
+
                 String teamName = chosenButton.getText().toString();
                 sharedPreferencesEditor.putString("teamName", teamName);
                 sharedPreferencesEditor.putString("teamId", teamList.get(teamName));
