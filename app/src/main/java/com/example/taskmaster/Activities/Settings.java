@@ -33,14 +33,6 @@ public class Settings extends AppCompatActivity {
 
         //***************************
         //get the team list from dynamo database
-
-        try {
-            Amplify.addPlugin(new AWSApiPlugin());
-            Log.i("MasterTask", "Initialized Amplify");
-        } catch (AmplifyException error) {
-            Log.e("MasterTask", "Could not initialize Amplify", error);
-        }
-
         Map< String,String> teamList = new HashMap<>();
         Amplify.API.query(
                 ModelQuery.list(com.amplifyframework.datastore.generated.model.Team.class),

@@ -45,12 +45,6 @@ public class AddATask extends AppCompatActivity {
         EditText state = findViewById(R.id.taskStateFeild);
 
         //****************************/
-        try {
-            Amplify.addPlugin(new AWSApiPlugin());
-            Log.i("TaskMaster", "Initialized Amplify");
-        } catch (AmplifyException error) {
-            Log.e("TaskMaster", "Could not initialize Amplify", error);
-        }
 
         Map<String, String> teamList = new HashMap<>();
         Amplify.API.query(
@@ -66,7 +60,7 @@ public class AddATask extends AppCompatActivity {
                 error -> Log.e("TaskMaster", error.toString(), error)
         );
 
-        Log.i("teamlis", teamList.toString());
+        Log.i("teamlist", teamList.toString());
 
         //****************************/
 
