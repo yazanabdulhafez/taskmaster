@@ -4,6 +4,7 @@ type Task @model @auth(rules: [{allow: public}]) {
   body: String!
   state: String!
   teamID: ID @index(name: "byTeam")
+  filekey: String!
 }
 
 type Team @model @auth(rules: [{allow: public}]) {

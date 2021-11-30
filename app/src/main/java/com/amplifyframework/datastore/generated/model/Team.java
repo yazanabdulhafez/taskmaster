@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import androidx.core.util.ObjectsCompat;
 
-
 import com.amplifyframework.core.model.AuthStrategy;
 import com.amplifyframework.core.model.Model;
 import com.amplifyframework.core.model.ModelOperation;
@@ -23,7 +22,6 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Team type in your schema. */
 @SuppressWarnings("all")
-
 @ModelConfig(pluralName = "Teams", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
@@ -39,14 +37,12 @@ public final class Team implements Model {
       return id;
   }
   
-
   public String getName() {
       return name;
   }
   
   public List<Task> getAmpTasks() {
       return AmpTasks;
-
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -57,11 +53,9 @@ public final class Team implements Model {
       return updatedAt;
   }
   
-
   private Team(String id, String name) {
     this.id = id;
     this.name = name;
-
   }
   
   @Override
@@ -74,7 +68,6 @@ public final class Team implements Model {
       Team team = (Team) obj;
       return ObjectsCompat.equals(getId(), team.getId()) &&
               ObjectsCompat.equals(getName(), team.getName()) &&
-
               ObjectsCompat.equals(getCreatedAt(), team.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), team.getUpdatedAt());
       }
@@ -97,16 +90,13 @@ public final class Team implements Model {
       .append("Team {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
-
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-
   public static BuildStep builder() {
-
       return new Builder();
   }
   
@@ -139,7 +129,6 @@ public final class Team implements Model {
   public static class Builder implements BuildStep {
     private String id;
     private String name;
-
     @Override
      public Team build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -152,7 +141,6 @@ public final class Team implements Model {
     @Override
      public BuildStep name(String name) {
         this.name = name;
-
         return this;
     }
     
@@ -168,7 +156,6 @@ public final class Team implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-
     private CopyOfBuilder(String id, String name) {
       super.id(id);
       super.name(name);
@@ -177,7 +164,6 @@ public final class Team implements Model {
     @Override
      public CopyOfBuilder name(String name) {
       return (CopyOfBuilder) super.name(name);
-
     }
   }
   

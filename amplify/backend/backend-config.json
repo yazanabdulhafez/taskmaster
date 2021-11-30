@@ -15,6 +15,12 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authtaskmaster08948316"
+              }
             }
           ]
         }
@@ -45,6 +51,13 @@
           "EMAIL"
         ]
       }
+    }
+  },
+  "storage": {
+    "taskmasterstore": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }

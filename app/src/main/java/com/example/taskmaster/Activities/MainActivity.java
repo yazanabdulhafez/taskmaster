@@ -33,6 +33,7 @@ import com.amplifyframework.core.Amplify;
 
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.example.taskmaster.Adapters.TaskAdapter;
 import com.example.taskmaster.Database.AppDatabase;
 import com.example.taskmaster.Database.TaskDao;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.configure(getApplicationContext());
 
             Log.i("TaskMaster", "Initialized Amplify");
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             Amplify.API.query(
                     ModelQuery.get(Team.class, teamId),
                     response -> {
+                        Log.i("response", response.toString());
                         for (Task task : response.getData().getAmpTasks()) {
                             taskList.add(task);
                         }
