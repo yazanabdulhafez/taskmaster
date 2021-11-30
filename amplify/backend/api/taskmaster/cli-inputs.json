@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "taskmaster",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-6779be28-1b71-412d-9f88-84822d48a730/amplify/backend/api/taskmaster/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-b48b3638-ff0b-4836-97f6-e5de4aecb87e/amplify/backend/api/taskmaster/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",
@@ -17,6 +17,10 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
+      },
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authtaskmaster08948316"
       }
     ]
   }
