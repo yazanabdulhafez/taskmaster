@@ -82,25 +82,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String teamId = sharedPreferences.getString("teamId", "");
 
-//                Team teamOne = Team.builder().name("teamOne").build();
-//        Team teamTwo = Team.builder().name("teamTwo").build();
-//        Team teamThree = Team.builder().name("teamThree").build();
-//
-//        Amplify.API.mutate(
-//                ModelMutation.create(teamOne),
-//                response -> Log.i("TaskMaster", "Added Todo with id: " + response.getData().getId()),
-//                error -> Log.e("TaskMaster", "Create failed", error)
-//        );
-//        Amplify.API.mutate(
-//                ModelMutation.create(teamTwo),
-//                response -> Log.i("TaskMaster", "Added Todo with id: " + response.getData().getId()),
-//                error -> Log.e("TaskMaster", "Create failed", error)
-//        );
-//        Amplify.API.mutate(
-//                ModelMutation.create(teamThree),
-//                response -> Log.i("TaskMaster", "Added Todo with id: " + response.getData().getId()),
-//                error -> Log.e("TaskMaster", "Create failed", error)
-//        );
 
 //////////////**********************///////////////
 //        AppDatabase db =AppDatabase.getInstance(getApplicationContext());

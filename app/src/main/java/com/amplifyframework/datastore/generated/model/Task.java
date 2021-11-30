@@ -30,14 +30,14 @@ public final class Task implements Model {
   public static final QueryField TITLE = field("Task", "title");
   public static final QueryField BODY = field("Task", "body");
   public static final QueryField STATE = field("Task", "state");
-  public static final QueryField TEAM_ID = field("Task", "teamID");
   public static final QueryField FILEKEY = field("Task", "filekey");
+  public static final QueryField TEAM_ID = field("Task", "teamID");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String", isRequired = true) String body;
   private final @ModelField(targetType="String", isRequired = true) String state;
-  private final @ModelField(targetType="ID") String teamID;
   private final @ModelField(targetType="String", isRequired = true) String filekey;
+  private final @ModelField(targetType="ID") String teamID;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -56,12 +56,12 @@ public final class Task implements Model {
       return state;
   }
   
-  public String getTeamId() {
-      return teamID;
-  }
-  
   public String getFilekey() {
       return filekey;
+  }
+  
+  public String getTeamId() {
+      return teamID;
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -72,13 +72,13 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String body, String state, String teamID, String filekey) {
+  private Task(String id, String title, String body, String state, String filekey, String teamID) {
     this.id = id;
     this.title = title;
     this.body = body;
     this.state = state;
-    this.teamID = teamID;
     this.filekey = filekey;
+    this.teamID = teamID;
   }
   
   @Override
@@ -93,8 +93,8 @@ public final class Task implements Model {
               ObjectsCompat.equals(getTitle(), task.getTitle()) &&
               ObjectsCompat.equals(getBody(), task.getBody()) &&
               ObjectsCompat.equals(getState(), task.getState()) &&
-              ObjectsCompat.equals(getTeamId(), task.getTeamId()) &&
               ObjectsCompat.equals(getFilekey(), task.getFilekey()) &&
+              ObjectsCompat.equals(getTeamId(), task.getTeamId()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
       }
@@ -107,8 +107,8 @@ public final class Task implements Model {
       .append(getTitle())
       .append(getBody())
       .append(getState())
-      .append(getTeamId())
       .append(getFilekey())
+      .append(getTeamId())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -123,8 +123,8 @@ public final class Task implements Model {
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("body=" + String.valueOf(getBody()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
-      .append("teamID=" + String.valueOf(getTeamId()) + ", ")
       .append("filekey=" + String.valueOf(getFilekey()) + ", ")
+      .append("teamID=" + String.valueOf(getTeamId()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -159,8 +159,8 @@ public final class Task implements Model {
       title,
       body,
       state,
-      teamID,
-      filekey);
+      filekey,
+      teamID);
   }
   public interface TitleStep {
     BodyStep title(String title);
@@ -205,8 +205,8 @@ public final class Task implements Model {
           title,
           body,
           state,
-          teamID,
-          filekey);
+          filekey,
+          teamID);
     }
     
     @Override
@@ -255,7 +255,7 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, String state, String teamId, String filekey) {
+    private CopyOfBuilder(String id, String title, String body, String state, String filekey, String teamId) {
       super.id(id);
       super.title(title)
         .body(body)
