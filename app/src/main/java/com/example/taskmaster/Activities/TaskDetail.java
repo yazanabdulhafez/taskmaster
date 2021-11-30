@@ -42,23 +42,27 @@ public class TaskDetail extends AppCompatActivity {
         ImageView storedFile = findViewById(R.id.retrivedFile);
         if (intent.getExtras().getString("taskFileKey") != null) {
             Amplify.Storage.downloadFile(
+
                     intent.getExtras().getString("taskFileKey"),
                     new File(getApplicationContext().getFilesDir() + "/" + intent.getExtras().getString("taskFileKey") + ".jpg"),
                     StorageDownloadFileOptions.defaultInstance(),
 
-                    progress -> Log.i("MasterTask", "Fraction completed: " + progress.getFractionCompleted()),
+                    progress -> Log.i("TaskMaster", "Fraction completed: " + progress.getFractionCompleted()),
 
                     result -> {
 
                         final Mimetypes mimetypes = Mimetypes.getInstance();
-                        String fileType=mimetypes.getMimetype(result.getFile());
+                        String fileType = mimetypes.getMimetype(result.getFile());
+                        Log.i("TaskMaster", "FileType: " + fileType);
 
-                        if(fileType=="image"){
-                        Bitmap bitmap = BitmapFactory.decodeFile(result.getFile().getPath());
-                        storedFile.setImageBitmap(bitmap);
-                        Log.i("MasterTask", "Successfully downloaded: " + result.getFile().getName());}
+//
+                        if (fileType.startsWith("image")) {
+                            Bitmap bitmap = BitmapFactory.decodeFile(result.getFile().getPath());
+                            storedFile.setImageBitmap(bitmap);
+                            Log.i("TaskMaster", "Successfully downloaded: " + result.getFile().getName());
+                        }
                     },
-                    error -> Log.e("MasterTask", "Download Failure", error)
+                    error -> Log.e("TaskMaster", "Download Failure", error)
             );
         }
 
