@@ -10,7 +10,7 @@
         android:id="@+id/textView9"
         android:layout_width="207dp"
         android:layout_height="43dp"
-        android:text="Task Description"
+        android:text="Task State"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
         app:layout_constraintVertical_bias="0.898" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/taskCounter"
         android:layout_width="164dp"
         android:layout_height="36dp"
         android:text="Total Tasks: 0"
@@ -116,7 +116,7 @@
         android:id="@+id/textView6"
         android:layout_width="207dp"
         android:layout_height="43dp"
-        android:text="Task Description"
+        android:text="Task Body"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

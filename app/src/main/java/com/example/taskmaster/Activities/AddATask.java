@@ -4,15 +4,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
@@ -40,6 +44,7 @@ public class AddATask extends AppCompatActivity {
     private Intent chooseFile;
     private String fileName;
     private Uri fileData;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +56,12 @@ public class AddATask extends AppCompatActivity {
         EditText title = findViewById(R.id.taskTitleFeild);
         EditText body = findViewById(R.id.taskBodyFeild);
         EditText state = findViewById(R.id.taskStateFeild);
+        TextView taskCounter=findViewById(R.id.taskCounter);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddATask.this);
+        int counter= sharedPreferences.getInt("Counter", 0);
+
+        taskCounter.setText("Total Tasks: "+ counter);
         //****************************/
 
         Map<String, String> teamList = new HashMap<>();
@@ -136,6 +146,8 @@ public class AddATask extends AppCompatActivity {
                 startActivity(goToHome);
             }
         });
+
+
 
     }
 

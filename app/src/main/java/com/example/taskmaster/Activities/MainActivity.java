@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
                         for (Task task : response.getData().getAmpTasks()) {
                             taskList.add(task);
                         }
+                        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+                        sharedPreferencesEditor.putInt("Counter", taskList.size());
+                        sharedPreferencesEditor.apply();
                         handler.sendEmptyMessage(1);
                     },
                     error -> Log.e("TaskMaster", error.toString(), error)
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new TaskAdapter(taskList));
+
+
         }
 
 
