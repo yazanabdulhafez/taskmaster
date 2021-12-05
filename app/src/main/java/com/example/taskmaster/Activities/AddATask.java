@@ -50,6 +50,15 @@ public class AddATask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_atask);
 
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                handleSendImage(intent); // Handle single image being sent
+            }
+        }
+
 
 
         Button addNewTaskButton = findViewById(R.id.addTask);
@@ -165,4 +174,26 @@ public class AddATask extends AppCompatActivity {
         fileName = file.getName();
         fileData = data.getData();
     }
+    void handleSendImage(Intent intent) {
+        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        File file = new File(imageUri.getPath());
+        fileName=file.getName();
+        System.out.println("****************************************"+fileName);
+        if (imageUri != null) {
+            // Update UI to reflect image being shared
+//            uploadInputStream(imageUri);
+            try {
+                InputStream exampleInputStream = getContentResolver().openInputStream(imageUri);
+                Amplify.Storage.uploadInputStream(
+                        fileName,
+                        exampleInputStream,
+                        result -> Log.i("TaskMaster", "Successfully uploaded: " + result.getKey()),
+                        storageFailure -> Log.e("TaskMaster", "Upload failed", storageFailure)
+                );
+            } catch (FileNotFoundException error) {
+                Log.e("TaskMaster", "Could not find file to open for input stream.", error);
+            }
+        }
+            Toast.makeText(getApplicationContext(),imageUri.getPath(),Toast.LENGTH_SHORT).show();
+        }
 }
