@@ -206,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             userNameAuth.setText("Anonymous");
         }
+
+        Toast.makeText(getApplicationContext(), "onResume Called", Toast.LENGTH_LONG).show();
     }
 
     // Called when another activity is taking focus.
