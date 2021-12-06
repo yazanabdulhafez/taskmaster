@@ -31,12 +31,16 @@ public final class Task implements Model {
   public static final QueryField BODY = field("Task", "body");
   public static final QueryField STATE = field("Task", "state");
   public static final QueryField FILEKEY = field("Task", "filekey");
+  public static final QueryField ALTITUDE = field("Task", "altitude");
+  public static final QueryField LONGITUDE = field("Task", "longitude");
   public static final QueryField TEAM_ID = field("Task", "teamID");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String", isRequired = true) String body;
   private final @ModelField(targetType="String", isRequired = true) String state;
   private final @ModelField(targetType="String", isRequired = true) String filekey;
+  private final @ModelField(targetType="Float", isRequired = true) Double altitude;
+  private final @ModelField(targetType="Float", isRequired = true) Double longitude;
   private final @ModelField(targetType="ID") String teamID;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
@@ -60,6 +64,14 @@ public final class Task implements Model {
       return filekey;
   }
   
+  public Double getAltitude() {
+      return altitude;
+  }
+  
+  public Double getLongitude() {
+      return longitude;
+  }
+  
   public String getTeamId() {
       return teamID;
   }
@@ -72,12 +84,14 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String body, String state, String filekey, String teamID) {
+  private Task(String id, String title, String body, String state, String filekey, Double altitude, Double longitude, String teamID) {
     this.id = id;
     this.title = title;
     this.body = body;
     this.state = state;
     this.filekey = filekey;
+    this.altitude = altitude;
+    this.longitude = longitude;
     this.teamID = teamID;
   }
   
@@ -94,6 +108,8 @@ public final class Task implements Model {
               ObjectsCompat.equals(getBody(), task.getBody()) &&
               ObjectsCompat.equals(getState(), task.getState()) &&
               ObjectsCompat.equals(getFilekey(), task.getFilekey()) &&
+              ObjectsCompat.equals(getAltitude(), task.getAltitude()) &&
+              ObjectsCompat.equals(getLongitude(), task.getLongitude()) &&
               ObjectsCompat.equals(getTeamId(), task.getTeamId()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
@@ -108,6 +124,8 @@ public final class Task implements Model {
       .append(getBody())
       .append(getState())
       .append(getFilekey())
+      .append(getAltitude())
+      .append(getLongitude())
       .append(getTeamId())
       .append(getCreatedAt())
       .append(getUpdatedAt())
@@ -124,6 +142,8 @@ public final class Task implements Model {
       .append("body=" + String.valueOf(getBody()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
       .append("filekey=" + String.valueOf(getFilekey()) + ", ")
+      .append("altitude=" + String.valueOf(getAltitude()) + ", ")
+      .append("longitude=" + String.valueOf(getLongitude()) + ", ")
       .append("teamID=" + String.valueOf(getTeamId()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
@@ -150,6 +170,8 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -160,6 +182,8 @@ public final class Task implements Model {
       body,
       state,
       filekey,
+      altitude,
+      longitude,
       teamID);
   }
   public interface TitleStep {
@@ -178,7 +202,17 @@ public final class Task implements Model {
   
 
   public interface FilekeyStep {
-    BuildStep filekey(String filekey);
+    AltitudeStep filekey(String filekey);
+  }
+  
+
+  public interface AltitudeStep {
+    LongitudeStep altitude(Double altitude);
+  }
+  
+
+  public interface LongitudeStep {
+    BuildStep longitude(Double longitude);
   }
   
 
@@ -189,12 +223,14 @@ public final class Task implements Model {
   }
   
 
-  public static class Builder implements TitleStep, BodyStep, StateStep, FilekeyStep, BuildStep {
+  public static class Builder implements TitleStep, BodyStep, StateStep, FilekeyStep, AltitudeStep, LongitudeStep, BuildStep {
     private String id;
     private String title;
     private String body;
     private String state;
     private String filekey;
+    private Double altitude;
+    private Double longitude;
     private String teamID;
     @Override
      public Task build() {
@@ -206,6 +242,8 @@ public final class Task implements Model {
           body,
           state,
           filekey,
+          altitude,
+          longitude,
           teamID);
     }
     
@@ -231,9 +269,23 @@ public final class Task implements Model {
     }
     
     @Override
-     public BuildStep filekey(String filekey) {
+     public AltitudeStep filekey(String filekey) {
         Objects.requireNonNull(filekey);
         this.filekey = filekey;
+        return this;
+    }
+    
+    @Override
+     public LongitudeStep altitude(Double altitude) {
+        Objects.requireNonNull(altitude);
+        this.altitude = altitude;
+        return this;
+    }
+    
+    @Override
+     public BuildStep longitude(Double longitude) {
+        Objects.requireNonNull(longitude);
+        this.longitude = longitude;
         return this;
     }
     
@@ -255,12 +307,14 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, String state, String filekey, String teamId) {
+    private CopyOfBuilder(String id, String title, String body, String state, String filekey, Double altitude, Double longitude, String teamId) {
       super.id(id);
       super.title(title)
         .body(body)
         .state(state)
         .filekey(filekey)
+        .altitude(altitude)
+        .longitude(longitude)
         .teamId(teamId);
     }
     
@@ -282,6 +336,16 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder filekey(String filekey) {
       return (CopyOfBuilder) super.filekey(filekey);
+    }
+    
+    @Override
+     public CopyOfBuilder altitude(Double altitude) {
+      return (CopyOfBuilder) super.altitude(altitude);
+    }
+    
+    @Override
+     public CopyOfBuilder longitude(Double longitude) {
+      return (CopyOfBuilder) super.longitude(longitude);
     }
     
     @Override

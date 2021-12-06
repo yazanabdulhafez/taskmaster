@@ -6,8 +6,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,8 +19,10 @@ import com.amazonaws.services.s3.util.Mimetypes;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.storage.options.StorageDownloadFileOptions;
 import com.example.taskmaster.R;
+import com.google.android.gms.maps.MapView;
 
 import java.io.File;
+import java.util.Locale;
 
 public class TaskDetail extends AppCompatActivity {
 
@@ -67,6 +72,19 @@ public class TaskDetail extends AppCompatActivity {
         }
 
         //**************/
+        Double altitude=getIntent().getDoubleExtra("altitude",0);
+        Double longitude = getIntent().getDoubleExtra("longitude",0);
+        Log.i("geet",altitude+"");
+        Log.i("geet",longitude+"");
+        Button map = findViewById(R.id.map);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", longitude,altitude);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
+            }
+        });
 
     }
 }

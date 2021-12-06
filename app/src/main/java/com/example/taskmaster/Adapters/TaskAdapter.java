@@ -70,6 +70,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 goToDetailsPage.putExtra("taskBody",holder.task.getBody());
                 goToDetailsPage.putExtra("taskState",holder.task.getState());
                 goToDetailsPage.putExtra("taskFileKey",holder.task.getFilekey());
+                goToDetailsPage.putExtra("altitude",holder.task.getAltitude());
+                goToDetailsPage.putExtra("longitude",holder.task.getLongitude());
                 v.getContext().startActivity(goToDetailsPage);
             }
         });
