@@ -21,15 +21,15 @@
 
     <TextView
         android:id="@+id/taskDatailText"
-        android:layout_width="302dp"
-        android:layout_height="273dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:text="text "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.198" />
 
     <ImageView
         android:id="@+id/retrivedFile"
@@ -37,10 +37,23 @@
         android:layout_height="182dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839"
+        app:layout_constraintVertical_bias="0.444"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Button
+        android:id="@+id/map"
+        android:layout_width="163dp"
+        android:layout_height="50dp"
+        android:text="show location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.723" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

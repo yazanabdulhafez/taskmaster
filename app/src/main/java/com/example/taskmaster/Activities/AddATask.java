@@ -1,13 +1,22 @@
 package com.example.taskmaster.Activities;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+//import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.room.Room;
 
+//import android.Manifest;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+//import android.location.Location;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -19,18 +28,23 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.aws.AWSApiPlugin;
+//import com.amplifyframework.AmplifyException;
+//import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
-import com.example.taskmaster.Database.AppDatabase;
+//import com.example.taskmaster.Database.AppDatabase;
 //import com.example.taskmaster.Models.Task;
 
 import com.example.taskmaster.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+//import com.google.android.gms.location.LocationServices;
+//import com.google.android.play.core.tasks.OnSuccessListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,6 +58,11 @@ public class AddATask extends AppCompatActivity {
     private Intent chooseFile;
     private String fileName;
     private Uri fileData;
+    private FusedLocationProviderClient fusedLocationClient;
+    private double altitude;
+    private double longitude;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +78,34 @@ public class AddATask extends AppCompatActivity {
             }
         }
 
+        //**///////////*/
+        //location
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1212);
+
+        }else {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                altitude=  location.getAltitude();
+                                longitude=  location.getLongitude();
+                                Log.i("add",altitude+"");
+                                Log.i("add",longitude+"");
+                                Toast.makeText(AddATask.this, "Location: "+location, Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(AddATask.this, "null", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }});
+
+
+        }
+        //
+        /////////////////////
 
 
         Button addNewTaskButton = findViewById(R.id.addTask);
@@ -140,6 +187,8 @@ public class AddATask extends AppCompatActivity {
                                     .body(body.getText().toString())
                                     .state(state.getText().toString())
                                     .filekey(fileName)
+                                    .altitude(altitude)
+                                    .longitude(longitude)
                                     .teamId(response1.getData().getId())
                                     .build();
 
